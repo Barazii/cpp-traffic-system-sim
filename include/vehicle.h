@@ -1,6 +1,7 @@
 #pragma once
 
 #include <memory>
+#include "traffic_object.h"
 
 namespace street
 {
@@ -14,7 +15,7 @@ namespace intersection
 
 namespace vehicle
 {
-    class vehicle
+    class vehicle : public traffic_object::traffic_object
     {
     public:
         vehicle() = default;
@@ -26,6 +27,9 @@ namespace vehicle
             _current_intersection_ptr = intersection_ptr;
             _pos_street = 0.0;
         }
+
+        void simulate();
+        void drive();
 
     private:
         std::shared_ptr<street::street> _current_street_ptr{};
