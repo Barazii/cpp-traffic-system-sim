@@ -2,6 +2,13 @@
 
 #include <string>
 #include <opencv4/opencv2/core.hpp>
+#include <memory>
+#include <vector>
+
+namespace traffic_object
+{
+    class traffic_object;
+}
 
 namespace graphics
 {
@@ -12,7 +19,7 @@ namespace graphics
         ~graphics() = default;
 
         void set_background_filename(std::string filename) { _filename = filename; }
-        void simulate();
+        void simulate(std::vector<std::shared_ptr<traffic_object::traffic_object>> &);
 
     private:
         std::string _filename{};
@@ -20,6 +27,6 @@ namespace graphics
         std::string _window_name{};
 
         void load_background_image();
-        void draw_traffic_objects();
+        void draw_traffic_objects(std::vector<std::shared_ptr<traffic_object::traffic_object>> &);
     };
 }

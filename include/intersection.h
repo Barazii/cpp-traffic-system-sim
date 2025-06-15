@@ -21,7 +21,7 @@ namespace intersection
     class intersection : public traffic_object::traffic_object
     {
     public:
-        intersection() = default;
+        intersection();
         ~intersection() = default;
 
         void setPosition(float x, float y)

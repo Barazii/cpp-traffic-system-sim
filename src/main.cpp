@@ -60,5 +60,5 @@ int main()
 
     graphics::graphics graphics{};
     graphics.set_background_filename(std::string("../paris.jpg"));
-    graphics.simulate();
+    graphics.simulate(traffic_objects_ptrs);
 }

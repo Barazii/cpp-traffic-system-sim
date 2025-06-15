@@ -18,7 +18,7 @@ namespace vehicle
     class vehicle : public traffic_object::traffic_object
     {
     public:
-        vehicle() = default;
+        vehicle();
         ~vehicle() = default;
 
         void set_current_street(std::shared_ptr<street::street> street_ptr) { _current_street_ptr = street_ptr; }
