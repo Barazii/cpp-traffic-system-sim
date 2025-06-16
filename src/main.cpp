@@ -11,15 +11,15 @@ void create_traffic_objects(std::vector<std::shared_ptr<street::street>> &street
     std::generate_n(std::back_inserter(intersections_ptrs), size_t(9), []()
                     { return std::make_shared<intersection::intersection>(); });
     // manually set positions
-    intersections_ptrs.at(0)->setPosition(385, 270);
-    intersections_ptrs.at(1)->setPosition(1240, 80);
-    intersections_ptrs.at(2)->setPosition(1625, 75);
-    intersections_ptrs.at(3)->setPosition(2110, 75);
-    intersections_ptrs.at(4)->setPosition(2840, 175);
-    intersections_ptrs.at(5)->setPosition(3070, 680);
-    intersections_ptrs.at(6)->setPosition(2800, 1400);
-    intersections_ptrs.at(7)->setPosition(400, 1100);
-    intersections_ptrs.at(8)->setPosition(1700, 900);
+    intersections_ptrs.at(0)->set_position(385, 270);
+    intersections_ptrs.at(1)->set_position(1240, 80);
+    intersections_ptrs.at(2)->set_position(1625, 75);
+    intersections_ptrs.at(3)->set_position(2110, 75);
+    intersections_ptrs.at(4)->set_position(2840, 175);
+    intersections_ptrs.at(5)->set_position(3070, 680);
+    intersections_ptrs.at(6)->set_position(2800, 1400);
+    intersections_ptrs.at(7)->set_position(400, 1100);
+    intersections_ptrs.at(8)->set_position(1700, 900);
 
     std::generate_n(std::back_inserter(streets_ptrs), size_t(8), []()
                     { return std::make_shared<street::street>(); });
@@ -60,5 +60,5 @@ int main()
 
     graphics::graphics graphics{};
     graphics.set_background_filename(std::string("../paris.jpg"));
-    graphics.simulate(traffic_objects_ptrs);
+    graphics.simulate(std::move(traffic_objects_ptrs));
 }

@@ -3,8 +3,9 @@
 #include <opencv2/highgui.hpp>
 #include "traffic_object.h"
 #include "intersection.h"
+#include <iostream>
 
-void graphics::graphics::simulate(std::vector<std::shared_ptr<traffic_object::traffic_object>> &traffic_objects_ptrs)
+void graphics::graphics::simulate(std::vector<std::shared_ptr<traffic_object::traffic_object>> &&traffic_objects_ptrs)
 {
     this->load_background_image();
     while (true)
@@ -30,6 +31,7 @@ void graphics::graphics::draw_traffic_objects(std::vector<std::shared_ptr<traffi
 
     for (auto top : traffic_objects_ptrs)
     {
+        std::cout << "traffic object instance" << std::endl;
         traffic_object::position position = top->get_position();
 
         if (top->get_object_type() == traffic_object::object_type::OBJECT_INTERSECTION)

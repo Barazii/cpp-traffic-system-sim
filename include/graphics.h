@@ -19,7 +19,7 @@ namespace graphics
         ~graphics() = default;
 
         void set_background_filename(std::string filename) { _filename = filename; }
-        void simulate(std::vector<std::shared_ptr<traffic_object::traffic_object>> &);
+        void simulate(std::vector<std::shared_ptr<traffic_object::traffic_object>> &&);
 
     private:
         std::string _filename{};
