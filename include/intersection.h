@@ -6,6 +6,8 @@
 #include "traffic_object.h"
 #include <thread>
 
+using traffic_light::traffic_light_state;
+
 namespace street
 {
     class street;
@@ -32,6 +34,7 @@ namespace intersection
 
         void add_street(std::shared_ptr<street::street>);
         void simulate();
+        traffic_light_state get_current_light() { return _traffic_light.get_current_light(); }
 
     private:
         float _pos_x{}, _pos_y{};
