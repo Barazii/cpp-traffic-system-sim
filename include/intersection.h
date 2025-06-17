@@ -39,6 +39,9 @@ namespace intersection
         void add_street(std::shared_ptr<street::street>);
         void simulate();
         traffic_light_state get_current_light() { return _traffic_light.get_current_light(); }
+        void add_vehicle_to_queue(std::shared_ptr<vehicle::vehicle>);
+        std::vector<std::shared_ptr<street::street>> look_street_options(std::shared_ptr<street::street>);
+        void notify_vehicle_leave() { _is_blocked = false; };
 
     private:
         float _pos_x{}, _pos_y{};
@@ -48,10 +51,10 @@ namespace intersection
 
         class waiting_vehicles_queue
         {
-
         public:
             size_t get_size();
             void permit_next_entry();
+            void add_vehicle_to_queue(std::shared_ptr<vehicle::vehicle>, std::promise<void> &&);
 
         private:
             std::vector<std::shared_ptr<vehicle::vehicle>> _vehicles{};

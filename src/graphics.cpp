@@ -42,7 +42,7 @@ void graphics::graphics::draw_traffic_objects(std::vector<std::shared_ptr<traffi
         }
         else if (top->get_object_type() == traffic_object::object_type::OBJECT_VEHICLE)
         {
-            cv::RNG rng(top->get_vehicle_id());
+            cv::RNG rng(top->get_id());
             int b = rng.uniform(0, 255);
             int g = rng.uniform(0, 255);
             int r = sqrt(255 * 255 - g * g - b * b);

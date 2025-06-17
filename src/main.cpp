@@ -33,8 +33,8 @@ void create_traffic_objects(std::vector<std::shared_ptr<street::street>> &street
     std::generate_n(std::back_inserter(vehicles_ptrs), size_t(6), []()
                     { return std::make_shared<vehicle::vehicle>(); });
     std::for_each(vehicles_ptrs.begin(), vehicles_ptrs.end(), [&intersections_ptrs, &streets_ptrs, i = 0](std::shared_ptr<vehicle::vehicle> vehicle_ptr) mutable
-                  { vehicle_ptr->set_current_street(streets_ptrs.at(i++)); 
-                    vehicle_ptr->set_current_intersection(intersections_ptrs.at(8)); });
+                  { vehicle_ptr->set_next_street(streets_ptrs.at(i++)); 
+                    vehicle_ptr->set_next_intersection(intersections_ptrs.at(8)); });
 }
 
 int main()

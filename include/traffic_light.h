@@ -19,6 +19,7 @@ namespace traffic_light
 
         void simulate();
         traffic_light_state get_current_light() { return _current_light; }
+        void wait_for_green() { _green_semaphore.acquire(); };
 
     private:
         traffic_light_state _current_light{};

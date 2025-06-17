@@ -1,4 +1,8 @@
 #include "intersection.h"
+#include <iostream>
+#include <vehicle.h>
+#include "street.h"
+#include <algorithm>
 
 using traffic_object::object_type;
 
@@ -42,4 +46,32 @@ void intersection::intersection::waiting_vehicles_queue::permit_next_entry()
     first_promise_it->set_value();
     _vehicles.erase(first_vehicle_it);
     _promises.erase(first_promise_it);
+}
+
+void intersection::intersection::waiting_vehicles_queue::add_vehicle_to_queue(std::shared_ptr<vehicle::vehicle> vehicle_ptr, std::promise<void> &&promise)
+{
+    _vehicles.push_back(vehicle_ptr);
+    _promises.push_back(std::move(promise));
+}
+
+void intersection::intersection::add_vehicle_to_queue(std::shared_ptr<vehicle::vehicle> vehicle_ptr)
+{
+    std::cout << "Intersection #" << _id << "::addVehicleToQueue: thread id = " << std::this_thread::get_id() << std::endl;
+    std::promise<void> promise{};
+    std::future<void> future = promise.get_future();
+    _waiting_vehicles.add_vehicle_to_queue(vehicle_ptr, std::move(promise));
+    future.wait();
+    std::cout << "Intersection #" << _id << ": Vehicle #" << vehicle_ptr->get_id() << " is granted entry." << std::endl;
+    _traffic_light.wait_for_green();
+    std::cout << "Current light: GREEN" << std::endl;
+}
+
+std::vector<std::shared_ptr<street::street>> intersection::intersection::look_street_options(std::shared_ptr<street::street> street_ptr)
+{
+    std::vector<std::shared_ptr<street::street>> street_options_ptrs{};
+
+    std::copy_if(_streets_ptrs.begin(), _streets_ptrs.end(), std::back_inserter(street_options_ptrs), [street_ptr](const auto sp)
+                 { return sp->get_id() != street_ptr->get_id(); });
+
+    return street_options_ptrs;
 }

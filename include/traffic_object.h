@@ -23,9 +23,14 @@ namespace traffic_object
         ~traffic_object();
 
         position get_position() { return {_posx, _posy}; }
+        void set_position(float x, float y)
+        {
+            _posx = x;
+            _posy = y;
+        };
         object_type get_object_type() { return _object_type; }
         virtual void simulate() {}
-        int get_vehicle_id() { return _id; }
+        int get_id() { return _id; }
 
     protected:
         std::vector<std::thread> _threads{};
