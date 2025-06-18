@@ -31,11 +31,7 @@ namespace intersection
     public:
         intersection();
         ~intersection() = default;
-        void set_position(float x, float y)
-        {
-            _pos_x = x;
-            _pos_y = y;
-        }
+
         void add_street(std::shared_ptr<street::street>);
         void simulate();
         traffic_light_state get_current_light() { return _traffic_light.get_current_light(); }
@@ -44,7 +40,6 @@ namespace intersection
         void notify_vehicle_leave() { _is_blocked = false; };
 
     private:
-        float _pos_x{}, _pos_y{};
         std::vector<std::shared_ptr<street::street>> _streets_ptrs{};
         traffic_light::traffic_light _traffic_light{};
         bool _is_blocked{};
