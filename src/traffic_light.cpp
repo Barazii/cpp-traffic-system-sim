@@ -19,12 +19,12 @@ void traffic_light::traffic_light::_switch_traffic_lights()
     std::uniform_real_distribution<float> dis(4.0, 6.0);
 
     auto last_time = std::chrono::high_resolution_clock::now();
-    auto cycle_duration = std::chrono::duration<float>(dis(gen));
+    auto cycle_duration = std::chrono::duration<float>(dis(gen)).count();
 
     while (true)
     {
         auto current_time = std::chrono::high_resolution_clock::now();
-        auto time_elapsed = current_time - last_time;
+        auto time_elapsed = std::chrono::duration<float>(current_time - last_time).count();
 
         if (time_elapsed >= cycle_duration)
         {
@@ -35,7 +35,5 @@ void traffic_light::traffic_light::_switch_traffic_lights()
 
             last_time = current_time;
         }
-
-        std::this_thread::sleep_for(std::chrono::milliseconds(1));
     }
 }

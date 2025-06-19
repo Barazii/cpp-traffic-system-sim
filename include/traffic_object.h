@@ -19,7 +19,7 @@ namespace traffic_object
     class traffic_object
     {
     public:
-        traffic_object() = default;
+        traffic_object() { _id++; }
         ~traffic_object();
 
         position get_position() { return {_posx, _posy}; }
