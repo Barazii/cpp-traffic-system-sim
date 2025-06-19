@@ -7,10 +7,11 @@
 
 void graphics::graphics::simulate(std::vector<std::shared_ptr<traffic_object::traffic_object>> &&traffic_objects_ptrs)
 {
+    auto tops = traffic_objects_ptrs;
     this->load_background_image();
     while (true)
     {
-        this->draw_traffic_objects(traffic_objects_ptrs);
+        this->draw_traffic_objects(tops);
     }
 }
 
@@ -24,14 +25,13 @@ void graphics::graphics::load_background_image()
     _images.push_back(background.clone()); // third element will be the result image for display
 }
 
-void graphics::graphics::draw_traffic_objects(std::vector<std::shared_ptr<traffic_object::traffic_object>> &traffic_objects_ptrs)
+void graphics::graphics::draw_traffic_objects(std::vector<std::shared_ptr<traffic_object::traffic_object>> traffic_objects_ptrs)
 {
     _images.at(1) = _images.at(0).clone();
     _images.at(2) = _images.at(0).clone();
 
     for (auto top : traffic_objects_ptrs)
     {
-        std::cout << "traffic object instance" << std::endl;
         traffic_object::position position = top->get_position();
 
         if (top->get_object_type() == traffic_object::object_type::OBJECT_INTERSECTION)

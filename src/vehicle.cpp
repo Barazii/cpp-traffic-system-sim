@@ -25,22 +25,22 @@ void vehicle::vehicle::drive()
     std::cout << "Vehicle #" << _id << "::drive: thread id = " << std::this_thread::get_id() << std::endl;
 
     bool entered_intersection = false;
-    auto cycle_duration = std::chrono::milliseconds(1);
+    float cycle_duration = 1.0;
     auto last_time = std::chrono::system_clock::now();
 
     while (true)
     {
         auto current_time = std::chrono::system_clock::now();
-        auto time_elapsed = std::chrono::duration_cast<std::chrono::milliseconds>(current_time - last_time);
+        auto time_elapsed = std::chrono::duration_cast<std::chrono::milliseconds>(current_time - last_time).count();
 
         if (time_elapsed >= cycle_duration)
         {
-            _pos_street += _speed * std::chrono::duration<float>(time_elapsed).count();
+            _pos_street += _speed * (time_elapsed / 1000.0);
             float completetion_rate = _pos_street / _current_street_ptr->get_length();
 
             std::shared_ptr<intersection::intersection> i{};
             i = (_current_intersection_ptr->get_id() == _current_street_ptr->get_in_intersection()->get_id()) ? _current_street_ptr->get_out_intersection() : _current_street_ptr->get_in_intersection();
-
+            
             float xv{}, yv{}, dx{}, dy{}, l{};
             position position1, position2;
             position1 = i->get_position();

@@ -41,11 +41,10 @@ size_t intersection::intersection::waiting_vehicles_queue::get_size()
 
 void intersection::intersection::waiting_vehicles_queue::permit_next_entry()
 {
-    std::vector<std::promise<void>>::iterator first_promise_it = _promises.begin();
-    std::vector<std::shared_ptr<vehicle::vehicle>>::iterator first_vehicle_it = _vehicles.begin();
-    first_promise_it->set_value();
-    _vehicles.erase(first_vehicle_it);
-    _promises.erase(first_promise_it);
+    std::lock_guard<std::mutex> locker(_mutex);
+    _promises[0].set_value();
+    _vehicles.erase(_vehicles.begin());
+    _promises.erase(_promises.begin());
 }
 
 void intersection::intersection::waiting_vehicles_queue::add_vehicle_to_queue(std::shared_ptr<vehicle::vehicle> vehicle_ptr, std::promise<void> &&promise)

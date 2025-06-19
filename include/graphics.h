@@ -27,6 +27,6 @@ namespace graphics
         std::string _window_name{};
 
         void load_background_image();
-        void draw_traffic_objects(std::vector<std::shared_ptr<traffic_object::traffic_object>> &);
+        void draw_traffic_objects(std::vector<std::shared_ptr<traffic_object::traffic_object>> );
     };
 }
