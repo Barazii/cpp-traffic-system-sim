@@ -19,6 +19,13 @@ void vehicle::vehicle::simulate()
     _threads.emplace_back(std::thread(&vehicle::drive, this));
 }
 
+void vehicle::vehicle::set_next_street(std::shared_ptr<street::street> street_ptr) { _current_street_ptr = street_ptr; }
+void vehicle::vehicle::set_next_intersection(std::shared_ptr<intersection::intersection> intersection_ptr)
+{
+    _current_intersection_ptr = intersection_ptr;
+    _pos_street = 0.0;
+}
+
 void vehicle::vehicle::drive()
 {
     std::cout << "Vehicle #" << _id << "::drive: thread id = " << std::this_thread::get_id() << std::endl;

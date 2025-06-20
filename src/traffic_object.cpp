@@ -6,6 +6,8 @@
 
 int traffic_object::traffic_object::_id_count = 0;
 
+traffic_object::traffic_object::traffic_object() { _id = _id_count++; }
+
 traffic_object::traffic_object::~traffic_object()
 {
     std::for_each(_threads.begin(), _threads.end(), [](std::thread &thread)
@@ -13,6 +15,18 @@ traffic_object::traffic_object::~traffic_object()
             if(thread.joinable())
                 thread.join(); });
 }
+
+traffic_object::position traffic_object::traffic_object::get_position() { return {_posx, _posy}; }
+
+void traffic_object::traffic_object::set_position(float x, float y)
+{
+    _posx = x;
+    _posy = y;
+};
+
+traffic_object::object_type traffic_object::traffic_object::get_object_type() { return _object_type; }
+
+int traffic_object::traffic_object::get_id() { return _id; }
 
 void traffic_object::create_traffic_objects(std::vector<std::shared_ptr<street::street>> &streets_ptrs, std::vector<std::shared_ptr<intersection::intersection>> &intersections_ptrs, std::vector<std::shared_ptr<vehicle::vehicle>> &vehicles_ptrs)
 {

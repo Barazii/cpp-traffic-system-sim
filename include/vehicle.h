@@ -11,13 +11,8 @@ namespace vehicle
         vehicle();
         ~vehicle() = default;
 
-        void set_next_street(std::shared_ptr<street::street> street_ptr) { _current_street_ptr = street_ptr; }
-        void set_next_intersection(std::shared_ptr<intersection::intersection> intersection_ptr)
-        {
-            _current_intersection_ptr = intersection_ptr;
-            _pos_street = 0.0;
-        }
-
+        void set_next_street(std::shared_ptr<street::street> street_ptr);
+        void set_next_intersection(std::shared_ptr<intersection::intersection> intersection_ptr);
         void simulate();
         void drive();
 

@@ -7,6 +7,10 @@ void traffic_light::traffic_light::simulate()
     _threads.emplace_back(std::thread(&traffic_light::traffic_light::_switch_traffic_lights, this));
 }
 
+traffic_light::traffic_light_state traffic_light::traffic_light::get_current_light() { return _current_light; }
+
+void traffic_light::traffic_light::wait_for_green() { _green_semaphore.acquire(); };
+
 void traffic_light::traffic_light::_switch_traffic_lights()
 {
     std::random_device rd;

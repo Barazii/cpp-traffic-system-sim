@@ -5,6 +5,8 @@
 #include "intersection.h"
 #include <iostream>
 
+void graphics::graphics::set_background_filename(const std::string &filename) { _filename = filename; }
+
 void graphics::graphics::simulate(std::vector<std::shared_ptr<traffic_object::traffic_object>> &&traffic_objects_ptrs)
 {
     auto tops = traffic_objects_ptrs;

@@ -12,10 +12,10 @@ namespace street
         ~street() = default;
 
         void set_in_intersection(std::shared_ptr<intersection::intersection>);
-        std::shared_ptr<intersection::intersection> get_in_intersection() { return _in_intersection_ptr; }
+        std::shared_ptr<intersection::intersection> get_in_intersection();
         void set_out_intersection(std::shared_ptr<intersection::intersection>);
-        std::shared_ptr<intersection::intersection> get_out_intersection() { return _out_intersection_ptr; }
-        float get_length() { return _length; };
+        std::shared_ptr<intersection::intersection> get_out_intersection();
+        float get_length();
 
     private:
         std::shared_ptr<intersection::intersection> _in_intersection_ptr{}, _out_intersection_ptr{};

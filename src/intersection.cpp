@@ -6,6 +6,8 @@
 
 using traffic_object::object_type;
 
+traffic_light_state intersection::intersection::get_current_light() { return _traffic_light.get_current_light(); }
+
 intersection::intersection::intersection()
 {
     _object_type = object_type::OBJECT_INTERSECTION;

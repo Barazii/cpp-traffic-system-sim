@@ -30,7 +30,7 @@ namespace traffic_object
 
     enum class object_type
     {
-        NONE,
+        OBJECT_NULL,
         OBJECT_INTERSECTION,
         OBJECT_VEHICLE
     };
@@ -38,18 +38,14 @@ namespace traffic_object
     class traffic_object
     {
     public:
-        traffic_object() { _id = _id_count++; }
+        traffic_object();
         ~traffic_object();
 
-        position get_position() { return {_posx, _posy}; }
-        void set_position(float x, float y)
-        {
-            _posx = x;
-            _posy = y;
-        };
-        object_type get_object_type() { return _object_type; }
+        position get_position();
+        void set_position(float, float);
+        object_type get_object_type();
         virtual void simulate() {}
-        int get_id() { return _id; }
+        int get_id();
 
     protected:
         std::vector<std::thread> _threads{};
