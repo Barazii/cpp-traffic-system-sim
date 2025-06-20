@@ -3,6 +3,7 @@
 #include <opencv2/highgui.hpp>
 #include "traffic_object.h"
 #include "intersection.h"
+#include "vehicle.h"
 #include <iostream>
 
 void graphics::graphics::simulate(std::vector<std::shared_ptr<traffic_object::traffic_object>> &&traffic_objects_ptrs)

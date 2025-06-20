@@ -2,9 +2,27 @@
 
 #include <thread>
 #include <vector>
+#include <memory>
+
+namespace vehicle
+{
+    class vehicle;
+}
+
+namespace street
+{
+    class street;
+}
+
+namespace intersection
+{
+    class intersection;
+}
 
 namespace traffic_object
 {
+    void create_traffic_objects(std::vector<std::shared_ptr<street::street>> &, std::vector<std::shared_ptr<intersection::intersection>> &, std::vector<std::shared_ptr<vehicle::vehicle>> &);
+
     struct position
     {
         float x{}, y{};
@@ -12,6 +30,7 @@ namespace traffic_object
 
     enum class object_type
     {
+        NONE,
         OBJECT_INTERSECTION,
         OBJECT_VEHICLE
     };
@@ -19,7 +38,7 @@ namespace traffic_object
     class traffic_object
     {
     public:
-        traffic_object() { _id++; }
+        traffic_object() { _id = _id_count++; }
         ~traffic_object();
 
         position get_position() { return {_posx, _posy}; }
@@ -37,5 +56,8 @@ namespace traffic_object
         float _posx{}, _posy{};
         object_type _object_type{};
         int _id{};
+
+    private:
+        static int _id_count;
     };
 }

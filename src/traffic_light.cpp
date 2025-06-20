@@ -2,11 +2,6 @@
 #include <random>
 #include <chrono>
 
-traffic_light::traffic_light::traffic_light()
-{
-    _current_light = traffic_light_state::RED;
-}
-
 void traffic_light::traffic_light::simulate()
 {
     _threads.emplace_back(std::thread(&traffic_light::traffic_light::_switch_traffic_lights, this));
