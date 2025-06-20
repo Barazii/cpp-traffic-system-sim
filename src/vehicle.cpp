@@ -2,7 +2,6 @@
 #include <iostream>
 #include "street.h"
 #include "intersection.h"
-#include "traffic_object.h"
 #include <cmath>
 #include <random>
 

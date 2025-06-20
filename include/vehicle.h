@@ -3,16 +3,6 @@
 #include <memory>
 #include "traffic_object.h"
 
-namespace street
-{
-    class street;
-}
-
-namespace intersection
-{
-    class intersection;
-}
-
 namespace vehicle
 {
     class vehicle : public traffic_object::traffic_object, public std::enable_shared_from_this<vehicle>

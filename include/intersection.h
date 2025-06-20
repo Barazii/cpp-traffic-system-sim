@@ -9,21 +9,6 @@
 
 using traffic_light::traffic_light_state;
 
-namespace street
-{
-    class street;
-}
-
-namespace traffic_light
-{
-    class traffic_light;
-}
-
-namespace vehicle
-{
-    class vehicle;
-}
-
 namespace intersection
 {
     class intersection : public traffic_object::traffic_object
