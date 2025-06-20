@@ -40,7 +40,7 @@ void vehicle::vehicle::drive()
 
             std::shared_ptr<intersection::intersection> i{};
             i = (_current_intersection_ptr->get_id() == _current_street_ptr->get_in_intersection()->get_id()) ? _current_street_ptr->get_out_intersection() : _current_street_ptr->get_in_intersection();
-            
+
             float xv{}, yv{}, dx{}, dy{}, l{};
             position position1, position2;
             position1 = i->get_position();
@@ -54,8 +54,7 @@ void vehicle::vehicle::drive()
 
             if (completetion_rate > 0.9 and !entered_intersection)
             {
-                auto entry_permit_future = std::async(&intersection::intersection::add_vehicle_to_queue, _current_intersection_ptr, shared_from_this());
-                entry_permit_future.get();
+                _current_intersection_ptr->add_vehicle_to_queue(shared_from_this());
                 _speed /= 10.0;
                 entered_intersection = true;
             }
