@@ -8,7 +8,7 @@ namespace street
     class street : public traffic_object::traffic_object, public std::enable_shared_from_this<street>
     {
     public:
-        street();
+        street() = default;
         ~street() = default;
 
         void set_in_intersection(std::shared_ptr<intersection::intersection>);
@@ -18,7 +18,7 @@ namespace street
         float get_length();
 
     private:
-        std::shared_ptr<intersection::intersection> _in_intersection_ptr{}, _out_intersection_ptr{};
-        float _length{};
+        std::shared_ptr<intersection::intersection> in_intersection_ptr{}, out_intersection_ptr{};
+        float length{1000.0};
     };
 }

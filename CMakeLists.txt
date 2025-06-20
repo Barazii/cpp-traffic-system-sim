@@ -16,6 +16,10 @@ include_directories(include)
 
 file(GLOB SRC_FILES src/*.cpp)
 add_executable(main ${SRC_FILES})
+if(CMAKE_CXX_STANDARD GREATER_EQUAL 20)
+    message(STATUS "C++20 or later detected")
+    target_compile_definitions(main PRIVATE CXX20=1)
+endif()
 target_link_libraries(main ${OpenCV_LIBRARIES})
 
 file(GLOB TESTS_SRC_FILES tests/*.cpp)

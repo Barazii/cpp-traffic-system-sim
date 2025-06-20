@@ -1,7 +1,9 @@
 #pragma once
 
 #include "traffic_object.h"
+#ifdef CXX20
 #include <semaphore>
+#endif
 
 namespace traffic_light
 {
@@ -22,8 +24,10 @@ namespace traffic_light
         void wait_for_green();
 
     private:
-        traffic_light_state _current_light{traffic_light_state::RED};
-        void _switch_traffic_lights();
-        std::binary_semaphore _green_semaphore{0};
+        traffic_light_state current_light{traffic_light_state::RED};
+        void switch_traffic_lights();
+#ifdef CXX20
+        std::binary_semaphore green_semaphore{0};
+#endif
     };
 }

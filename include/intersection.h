@@ -25,10 +25,10 @@ namespace intersection
         void notify_vehicle_leave();
 
     private:
-        std::vector<std::shared_ptr<street::street>> _streets_ptrs{};
-        traffic_light::traffic_light _traffic_light{};
-        bool _is_blocked{};
-        std::mutex _mutex{};
+        std::vector<std::shared_ptr<street::street>> streets_ptrs{};
+        traffic_light::traffic_light traffic_light{};
+        bool is_blocked{};
+        std::mutex mutex{};
 
         class waiting_vehicles_queue
         {
@@ -38,12 +38,12 @@ namespace intersection
             void add_vehicle_to_queue(std::shared_ptr<vehicle::vehicle>, std::promise<void> &&);
 
         private:
-            std::vector<std::shared_ptr<vehicle::vehicle>> _vehicles{};
-            std::vector<std::promise<void>> _promises{};
-            std::mutex _mutex{};
+            std::vector<std::shared_ptr<vehicle::vehicle>> vehicles{};
+            std::vector<std::promise<void>> promises{};
+            std::mutex mutex{};
         };
 
-        waiting_vehicles_queue _waiting_vehicles{};
+        waiting_vehicles_queue waiting_vehicles{};
         void process_vehicle_queue();
     };
 }

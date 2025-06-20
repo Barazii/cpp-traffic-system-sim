@@ -1,25 +1,20 @@
 #include "street.h"
 #include "intersection.h"
 
-street::street::street()
-{
-    _length = 1000.0; // m
-}
-
 void street::street::set_in_intersection(std::shared_ptr<intersection::intersection> intersection_ptr)
 {
-    _in_intersection_ptr = intersection_ptr;
+    in_intersection_ptr = intersection_ptr;
     intersection_ptr->add_street(shared_from_this());
 }
 
 void street::street::set_out_intersection(std::shared_ptr<intersection::intersection> intersection_ptr)
 {
-    _out_intersection_ptr = intersection_ptr;
+    out_intersection_ptr = intersection_ptr;
     intersection_ptr->add_street(shared_from_this());
 }
 
-std::shared_ptr<intersection::intersection> street::street::get_in_intersection() { return _in_intersection_ptr; }
+std::shared_ptr<intersection::intersection> street::street::get_in_intersection() { return in_intersection_ptr; }
 
-std::shared_ptr<intersection::intersection> street::street::get_out_intersection() { return _out_intersection_ptr; }
+std::shared_ptr<intersection::intersection> street::street::get_out_intersection() { return out_intersection_ptr; }
 
-float street::street::get_length() { return _length; }
+float street::street::get_length() { return length; }

@@ -1,17 +1,23 @@
 #include "traffic_light.h"
 #include <random>
 #include <chrono>
+#include <iostream>
 
 void traffic_light::traffic_light::simulate()
 {
-    _threads.emplace_back(std::thread(&traffic_light::traffic_light::_switch_traffic_lights, this));
+    _threads.emplace_back(std::thread(&traffic_light::traffic_light::switch_traffic_lights, this));
 }
 
-traffic_light::traffic_light_state traffic_light::traffic_light::get_current_light() { return _current_light; }
+traffic_light::traffic_light_state traffic_light::traffic_light::get_current_light() { return current_light; }
 
-void traffic_light::traffic_light::wait_for_green() { _green_semaphore.acquire(); };
+void traffic_light::traffic_light::wait_for_green()
+{
+#ifdef CXX20
+    green_semaphore.acquire();
+#endif
+}
 
-void traffic_light::traffic_light::_switch_traffic_lights()
+void traffic_light::traffic_light::switch_traffic_lights()
 {
     std::random_device rd;
     std::mt19937 gen(rd());
@@ -27,10 +33,14 @@ void traffic_light::traffic_light::_switch_traffic_lights()
 
         if (time_elapsed >= cycle_duration)
         {
-            _current_light = (_current_light == traffic_light_state::GREEN) ? traffic_light_state::RED : traffic_light_state::GREEN;
+            current_light = (current_light == traffic_light_state::GREEN) ? traffic_light_state::RED : traffic_light_state::GREEN;
 
-            if (_current_light == traffic_light_state::GREEN)
-                _green_semaphore.release();
+            if (current_light == traffic_light_state::GREEN)
+            {
+#ifdef CXX20
+                green_semaphore.release();
+#endif
+            }
 
             last_time = current_time;
         }
