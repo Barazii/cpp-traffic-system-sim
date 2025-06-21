@@ -14,6 +14,11 @@ void traffic_light::traffic_light::wait_for_green()
 {
 #ifdef CXX20
     green_semaphore.acquire();
+#else
+    std::unique_lock<std::mutex> locker(mutex);
+    condition.wait(locker, [this]
+                   { return green_light; });
+    green_light = false;
 #endif
 }
 
@@ -39,6 +44,12 @@ void traffic_light::traffic_light::switch_traffic_lights()
             {
 #ifdef CXX20
                 green_semaphore.release();
+#else
+                {
+                    std::lock_guard<std::mutex> locker(mutex);
+                    green_light = true;
+                }
+                condition.notify_one();
 #endif
             }
 

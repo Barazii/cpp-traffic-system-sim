@@ -3,6 +3,9 @@
 #include "traffic_object.h"
 #ifdef CXX20
 #include <semaphore>
+#else
+#include <mutex>
+#include <condition_variable>
 #endif
 
 namespace traffic_light
@@ -28,6 +31,10 @@ namespace traffic_light
         void switch_traffic_lights();
 #ifdef CXX20
         std::binary_semaphore green_semaphore{0};
+#else
+        std::mutex mutex{};
+        std::condition_variable condition{};
+        bool green_light{false};
 #endif
     };
 }
