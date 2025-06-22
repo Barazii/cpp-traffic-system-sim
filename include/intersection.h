@@ -6,6 +6,7 @@
 #include "traffic_object.h"
 #include <thread>
 #include <future>
+#include <chrono>
 
 using traffic_light::traffic_light_state;
 
@@ -23,6 +24,10 @@ namespace intersection
         void add_vehicle_to_queue(std::shared_ptr<vehicle::vehicle>);
         std::vector<std::shared_ptr<street::street>> look_street_options(std::shared_ptr<street::street>);
         void notify_vehicle_leave();
+
+#ifdef TESTING
+        bool test_add_vehicle_to_queue(std::shared_ptr<vehicle::vehicle>);
+#endif
 
     private:
         std::vector<std::shared_ptr<street::street>> streets_ptrs{};

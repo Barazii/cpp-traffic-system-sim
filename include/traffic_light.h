@@ -26,6 +26,14 @@ namespace traffic_light
         traffic_light_state get_current_light();
         void wait_for_green();
 
+#if defined(TESTING)
+#if defined(CXX20)
+        void test_release_semaphore();
+#else
+        void test_notify_condition();
+#endif
+#endif
+
     private:
         traffic_light_state current_light{traffic_light_state::RED};
         void switch_traffic_lights();

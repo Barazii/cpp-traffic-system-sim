@@ -87,3 +87,21 @@ void intersection::intersection::notify_vehicle_leave()
     std::lock_guard<std::mutex> locker(mutex);
     is_blocked = false;
 };
+
+#ifdef TESTING
+bool intersection::intersection::test_add_vehicle_to_queue(std::shared_ptr<vehicle::vehicle> vehicle_ptr)
+{
+    std::thread(&intersection::intersection::add_vehicle_to_queue, this, vehicle_ptr).detach();
+    std::this_thread::sleep_for(std::chrono::milliseconds(100));
+    this->waiting_vehicles.permit_next_entry();
+    std::this_thread::sleep_for(std::chrono::milliseconds(100));
+#ifdef CXX20
+    this->traffic_light.test_release_semaphore();
+#else
+    this->traffic_light.test_notify_condition();
+#endif
+    std::this_thread::sleep_for(std::chrono::milliseconds(100));
+
+    return true;
+}
+#endif

@@ -57,3 +57,19 @@ void traffic_light::traffic_light::switch_traffic_lights()
         }
     }
 }
+
+#if defined(TESTING)
+#ifdef CXX20
+void traffic_light::traffic_light::test_release_semaphore()
+{
+    green_semaphore.release();
+}
+#else
+void traffic_light::traffic_light::test_notify_condition()
+{
+    std::lock_guard<std::mutex> locker(mutex);
+    green_light = true;
+    condition.notify_one();
+}
+#endif
+#endif

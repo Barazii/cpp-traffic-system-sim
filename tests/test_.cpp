@@ -17,9 +17,9 @@
 //     }
 // };
 
-BOOST_AUTO_TEST_SUITE(test)
+BOOST_AUTO_TEST_SUITE(test_traffic_object)
 
-BOOST_AUTO_TEST_CASE(test)
+BOOST_AUTO_TEST_CASE(test_1)
 {
     std::vector<std::shared_ptr<street::street>> streets_ptrs{};
     std::vector<std::shared_ptr<intersection::intersection>> intersections_ptrs{};
