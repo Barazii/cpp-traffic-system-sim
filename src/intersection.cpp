@@ -3,6 +3,7 @@
 #include "vehicle.h"
 #include "street.h"
 #include <algorithm>
+#include <cassert>
 
 using traffic_object::object_type;
 
@@ -93,7 +94,9 @@ bool intersection::intersection::test_add_vehicle_to_queue(std::shared_ptr<vehic
 {
     std::thread(&intersection::intersection::add_vehicle_to_queue, this, vehicle_ptr).detach();
     std::this_thread::sleep_for(std::chrono::milliseconds(100));
+    assert(this->waiting_vehicles.get_size() == 1);
     this->waiting_vehicles.permit_next_entry();
+    assert(this->waiting_vehicles.get_size() == 0);
     std::this_thread::sleep_for(std::chrono::milliseconds(100));
 #ifdef CXX20
     this->traffic_light.test_release_semaphore();

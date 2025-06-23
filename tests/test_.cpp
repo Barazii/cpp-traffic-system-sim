@@ -1,22 +1,6 @@
 #include <boost/test/unit_test.hpp>
 #include "traffic_object.h"
 
-// struct ChatBotTestsFixture
-// {
-//     std::stringstream buffer;
-//     std::streambuf *old;
-//     ChatBotTestsFixture()
-//     {
-//         // Redirect cout to our stringstream
-//         old = std::cout.rdbuf(buffer.rdbuf());
-//     }
-//     ~ChatBotTestsFixture()
-//     {
-//         // Restore cout
-//         std::cout.rdbuf(old);
-//     }
-// };
-
 BOOST_AUTO_TEST_SUITE(test_traffic_object)
 
 BOOST_AUTO_TEST_CASE(test_1)
