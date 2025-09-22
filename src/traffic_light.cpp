@@ -26,6 +26,12 @@ void traffic_light::traffic_light::switch_traffic_lights()
 
     while (true)
     {
+#ifdef TESTING
+        if (stop.load(std::memory_order_acquire))
+        {
+            return;
+        }
+#endif
         auto current_time = std::chrono::high_resolution_clock::now();
         auto time_elapsed = std::chrono::duration<float>(current_time - last_time).count();
 
@@ -43,7 +49,14 @@ void traffic_light::traffic_light::switch_traffic_lights()
     }
 }
 
-void traffic_light::traffic_light::test_release_semaphore()
+void traffic_light::traffic_light::release_semaphore_for_test()
 {
     green_semaphore.release();
 }
+
+#ifdef TESTING
+void traffic_light::traffic_light::stop_simulation_for_test()
+{
+    stop.store(true, std::memory_order_release);
+}
+#endif

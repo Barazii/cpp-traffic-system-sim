@@ -2,6 +2,9 @@
 
 #include "traffic_object.h"
 #include <semaphore>
+#ifdef TESTING
+#include <atomic>
+#endif
 
 namespace traffic_light
 {
@@ -20,11 +23,18 @@ namespace traffic_light
     void simulate();
     traffic_light_state get_current_light();
     void wait_for_green();
-    void test_release_semaphore();
+
+#ifdef TESTING
+    void stop_simulation_for_test();
+    void release_semaphore_for_test();
+#endif
 
     private:
         traffic_light_state current_light{traffic_light_state::RED};
         void switch_traffic_lights();
     std::binary_semaphore green_semaphore{0};
+#ifdef TESTING
+    std::atomic<bool> stop{false};
+#endif
     };
 }

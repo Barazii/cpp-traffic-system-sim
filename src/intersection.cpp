@@ -98,7 +98,7 @@ bool intersection::intersection::test_add_vehicle_to_queue(std::shared_ptr<vehic
     this->waiting_vehicles.permit_next_entry();
     assert(this->waiting_vehicles.get_size() == 0);
     std::this_thread::sleep_for(std::chrono::milliseconds(100));
-    this->traffic_light.test_release_semaphore();
+    this->traffic_light.release_semaphore_for_test();
     std::this_thread::sleep_for(std::chrono::milliseconds(100));
 
     return true;
