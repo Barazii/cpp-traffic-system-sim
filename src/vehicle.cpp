@@ -34,7 +34,11 @@ void vehicle::vehicle::drive()
     float cycle_duration = 1.0;
     auto last_time = std::chrono::system_clock::now();
 
-    while (true)
+    while (true
+#ifdef TESTING
+           && !_stop.load(std::memory_order_acquire)
+#endif
+    )
     {
         auto current_time = std::chrono::system_clock::now();
         auto time_elapsed = std::chrono::duration_cast<std::chrono::milliseconds>(current_time - last_time).count();
@@ -99,3 +103,15 @@ void vehicle::vehicle::drive()
         }
     }
 }
+
+#ifdef TESTING
+void vehicle::vehicle::stop_simulation_for_test()
+{
+    _stop.store(true, std::memory_order_release);
+}
+
+void vehicle::vehicle::set_speed_for_test(float speed)
+{
+    _speed = speed;
+}
+#endif
