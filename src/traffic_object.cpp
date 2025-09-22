@@ -4,7 +4,7 @@
 #include "vehicle.h"
 #include "street.h"
 
-int traffic_object::traffic_object::_id_count = 0;
+int traffic_object::traffic_object::_id_count = 1;
 
 traffic_object::traffic_object::traffic_object() { _id = _id_count++; }
 
