@@ -18,3 +18,6 @@ add_compile_definitions(TESTING)
 file(GLOB SRC_FILES src/*.cpp)
 add_executable(main ${SRC_FILES})
 target_link_libraries(main ${OpenCV_LIBRARIES})
+
+# Build unit tests (folder is "test")
+add_subdirectory(test)
