@@ -12,14 +12,7 @@ traffic_light::traffic_light_state traffic_light::traffic_light::get_current_lig
 
 void traffic_light::traffic_light::wait_for_green()
 {
-#ifdef CXX20
     green_semaphore.acquire();
-#else
-    std::unique_lock<std::mutex> locker(mutex);
-    condition.wait(locker, [this]
-                   { return green_light; });
-    green_light = false;
-#endif
 }
 
 void traffic_light::traffic_light::switch_traffic_lights()
@@ -42,15 +35,7 @@ void traffic_light::traffic_light::switch_traffic_lights()
 
             if (current_light == traffic_light_state::GREEN)
             {
-#ifdef CXX20
                 green_semaphore.release();
-#else
-                {
-                    std::lock_guard<std::mutex> locker(mutex);
-                    green_light = true;
-                }
-                condition.notify_one();
-#endif
             }
 
             last_time = current_time;
@@ -58,18 +43,7 @@ void traffic_light::traffic_light::switch_traffic_lights()
     }
 }
 
-#if defined(TESTING)
-#ifdef CXX20
 void traffic_light::traffic_light::test_release_semaphore()
 {
     green_semaphore.release();
 }
-#else
-void traffic_light::traffic_light::test_notify_condition()
-{
-    std::lock_guard<std::mutex> locker(mutex);
-    green_light = true;
-    condition.notify_one();
-}
-#endif
-#endif
