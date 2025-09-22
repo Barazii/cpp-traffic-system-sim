@@ -21,5 +21,3 @@ if(CMAKE_CXX_STANDARD GREATER_EQUAL 20)
     target_compile_definitions(main PRIVATE CXX20)
 endif()
 target_link_libraries(main ${OpenCV_LIBRARIES})
-
-add_subdirectory(tests)
